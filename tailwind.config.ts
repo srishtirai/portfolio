@@ -9,8 +9,18 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        primary: '#3E0E71',
+        accent: '#C0A3CF',
+      },
+      fontFamily: {
+        'charter': ['Charter', 'serif'],
+        'jetbrains': ['JetBrains Mono', 'monospace'],
+      },
+      fontSize: {
+        'header': '60px',
+        'subheader': '27px',
+        'body': '24px',
+        'small': '20px',
       },
     },
   },
