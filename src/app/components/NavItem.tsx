@@ -8,7 +8,7 @@ const NavItem = ({ label, targetId }: NavItemProps) => {
     <div className="inline-block text-center">
       <a
         href={`#${targetId}`}
-        className="text-primary text-body font-jetbrains font-medium"
+        className="text-primary text-small font-medium"
       >
         {label}
       </a>
