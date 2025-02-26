@@ -1,4 +1,7 @@
+"use client";
+
 import SkillsTab from "../components/SkillsTab";
+import Avatar from '../components/Avatar';
 
 export type Skill = {
   label: string;
@@ -80,7 +83,10 @@ export default function Skills() {
 
     return (
       <section id="skills" className="min-h-[90vh] p-8">
-        <h1 className="text-header font-bold mb-8">Skills</h1>
+        <div className="flex items-center mb-8">
+          <h1 className="text-header font-bold mr-4">Skills</h1> {/* Add margin-right to separate the title from the avatar */}
+          <Avatar bubbleMessage="I speak fluent JavaScript… and a few others!" sectionName="skills"/> {/* Avatar positioned next to the header */}
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
           {skillList.map((item) => (
             <SkillsTab key={item.category} category={item.category} skills={item.skills} />

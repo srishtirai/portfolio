@@ -11,7 +11,7 @@
 }
 
 body {
-  color: var(--foreground);
+  color: var(--accent);
   background: var(--background);
   font-family: 'JetBrains Mono', monospace;
   font-size: 24px;
@@ -20,6 +20,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Charter', serif;
   font-weight: 700px;
+  color: var(--foreground);
 }
 
 .text-header {

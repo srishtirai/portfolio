@@ -1,0 +1,54 @@
+.avatar-image {
+    display: inline-block;
+}
+  
+/* .speech-bubble {
+    width: fit-content;
+    
+    margin-left: 10px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 20px;
+    max-width: 200px;
+    white-space: nowrap;
+    font-size: 18px;
+} */
+
+.thought-bubble {
+    position: absolute;
+    top: -80px;
+    left: 60px;
+    width: fit-content;
+    min-width: 250px;
+    padding: 15px 20px;
+    font-size: 15px;
+    text-align: center;
+    border-radius: 50%;
+    border: 0.5px solid var(--accent);
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;
+    box-shadow: 2px 2px 6px var(--accent); 
+  }
+  
+  .thought-bubble::before,
+  .thought-bubble::after {
+    content: '';
+    position: absolute;
+    border: 0.5px solid var(--accent);
+    box-shadow: 2px 2px 6px var(--accent); 
+    border-radius: 50%;
+  }
+  
+  .thought-bubble::before {
+    width: 22px;
+    height: 22px;
+    bottom: -13px;
+    right: calc(100% - 30px); /* Centers the circle under the bubble */
+  }
+  
+  .thought-bubble::after {
+    width: 13px;
+    height: 13px;
+    bottom: -25px;
+    right: calc(100% - 10px); /* Centers the smaller circle under the larger one */
+  }
+  

@@ -1,11 +1,12 @@
+import Avatar from "../components/Avatar";
+
 export default function Experience() {
-    return (
-      <section id="experience" className="min-h-screen p-8">
-        <h2 className="text-3xl text-purple-950 font-bold">Experience</h2>
-        <p className="mt-4 text-lg">
-          I&apos;ve worked on several full-stack applications using technologies like Next.js, Node.js, and PostgreSQL.
-        </p>
-      </section>
-    );
-  }
-  
+  return (
+    <section id="experience" className="min-h-[90vh] p-8">
+      <div className="avatar-section flex items-center mb-8">
+        <h1 className="text-header font-bold mr-4">Experience</h1>
+        <Avatar bubbleMessage="From concept to production—been there, built that." sectionName="experience"/>
+      </div>
+    </section>
+  );
+}
