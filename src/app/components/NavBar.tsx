@@ -18,15 +18,22 @@ export default function NavBar() {
   ];
 
   return (
-    <div className="flex flex-wrap md:flex-nowrap items-center justify-between bg-white z-10">
-      <div className="flex items-center space-x-8">
+    <div className="flex flex-wrap items-center justify-between bg-white z-10 p-4">
+      <div className="hidden sm:flex flex-wrap items-center gap-3 sm:gap-8 ">
         {indexes.map((index) => (
           <NavItem key={index.targetId} label={index.label} targetId={index.targetId} />
         ))}
       </div>
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center gap-2 sm:gap-4 mt-4 sm:mt-0 ml-auto">
         {images.map((img) => (
-          <Image key={img.alt} src={img.src} alt={img.alt} width={38} height={38}/>
+          <Image 
+            key={img.alt}
+            src={img.src}
+            alt={img.alt}
+            width={30}
+            height={30}
+            className="sm:w-9 sm:h-9"
+          />
         ))}
       </div>
     </div>

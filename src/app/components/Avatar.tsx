@@ -40,7 +40,7 @@ export default function Avatar({ bubbleMessage, sectionName }: AvatarProps) {
   }, [sectionName]);
 
   return (
-    <div ref={avatarRef} className="avatar-wrapper">
+    <div ref={avatarRef} className="avatar-wrapper mt-10 sm:mt-0">
       <div className="avatar-image">
         <Image 
           src="/images/head.svg" 
@@ -48,6 +48,7 @@ export default function Avatar({ bubbleMessage, sectionName }: AvatarProps) {
           height={70} 
           unoptimized
           alt="headshot"
+          className="sm:w-[70px] sm:h-[70px] w-[50px] h-[50px]" 
         />
       </div>
       <div className="thought-bubble">

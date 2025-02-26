@@ -1,22 +1,10 @@
 .avatar-image {
     display: inline-block;
 }
-  
-/* .speech-bubble {
-    width: fit-content;
-    
-    margin-left: 10px;
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-size: 20px;
-    max-width: 200px;
-    white-space: nowrap;
-    font-size: 18px;
-} */
 
 .thought-bubble {
     position: absolute;
-    top: -80px;
+    top: -70px;
     left: 60px;
     width: fit-content;
     min-width: 250px;
@@ -52,3 +40,26 @@
     right: calc(100% - 10px); /* Centers the smaller circle under the larger one */
   }
   
+  @media (max-width: 640px) {
+    .thought-bubble {
+      top: -35px; /* Adjust the top position for mobile */
+      left: 50px; /* Adjust left for better alignment on smaller screens */
+      min-width: 180px; /* Decrease width for smaller screens */
+      padding: 10px 8px; /* Reduce padding for smaller screens */
+      font-size: 12px; /* Smaller font size */
+    }
+  
+    .thought-bubble::before {
+      width: 12px; /* Reduce size of the larger circle */
+      height: 12px;
+      bottom: -2px;
+      right: calc(100% - 10px); /* Adjust the position for smaller screens */
+    }
+  
+    .thought-bubble::after {
+      width: 5px; /* Reduce size of the smaller circle */
+      height: 5px;
+      bottom: -10px;
+      right: calc(100% - 0px); /* Adjust the position for smaller screens */
+    }
+  }

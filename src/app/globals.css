@@ -14,27 +14,47 @@ body {
   color: var(--accent);
   background: var(--background);
   font-family: 'JetBrains Mono', monospace;
-  font-size: 24px;
+  font-size: 1rem; /* Set base font size for small screens */
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Charter', serif;
-  font-weight: 700px;
+  font-weight: 700;
   color: var(--foreground);
 }
 
+/* Mobile-first styles (small screens) */
 .text-header {
-  font-size: 60px;
+  font-size: 2rem; /* Default for phones (small screens) */
 }
 
 .text-subheader {
-  font-size: 27px;
+  font-size: 1.25rem; /* Default for phones (small screens) */
 }
 
 .text-body {
-  font-size: 24px;
+  font-size: 1rem; /* Default for phones (small screens) */
 }
 
 .text-small {
-  font-size: 20px;
+  font-size: 0.875rem; /* Default for phones (small screens) */
+}
+
+/* Large screen styles */
+@media (min-width: 640px) {
+  .text-header {
+    font-size: 3.75rem; /* For larger screens (60px equivalent) */
+  }
+
+  .text-subheader {
+    font-size: 1.6875rem; /* For larger screens (27px equivalent) */
+  }
+
+  .text-body {
+    font-size: 1.5rem; /* For larger screens (24px equivalent) */
+  }
+
+  .text-small {
+    font-size: 1.25rem; /* For larger screens (20px equivalent) */
+  }
 }

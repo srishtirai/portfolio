@@ -7,7 +7,7 @@ import About from './sections/About';
 
 export default function Home() {
   return (
-    <div className="mx-[60px] mt-[40px] sm:mx-[40px] sm:mt-[30px] md:mx-[60px] md:mt-[40px]">
+    <div className="mx-[10px] mt-[5px] sm:mx-[40px] sm:mt-[30px] md:mx-[60px] md:mt-[40px]">
       <Intro />
       <Skills />
       <Education />
