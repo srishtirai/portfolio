@@ -1,9 +1,9 @@
 import Image from 'next/image';
-import { SkillsListProp } from '../sections/Skills';
+import { SkillsListProp } from '../skills/page';
 
 export default function SkillsTab({ category, skills }: SkillsListProp) {
     return (
-        <div className="flex flex-col items-center justify-start bg-white border border-accent rounded-[10px] w-full max-w-[250px] min-w-[170px] sm:min-w-[200px] h-[430px] sm:h-[530px] p-4 space-y-4">
+        <div className="flex flex-col items-center justify-start bg-white border border-accent rounded-[10px] w-full max-w-[250px] min-w-[170px] sm:max-w-[300px] sm:min-w-[220px] h-[430px] sm:h-[530px] p-4 space-y-2">
             <h3 className="text-subheader sm:text-3xl font-bold text-center sm:h-[70px]">{category}</h3>
             <div className="flex flex-wrap justify-start sm:justify-start space-y-4 w-full">
                 {skills.map((skill) => (

@@ -1,11 +1,9 @@
 import Image from 'next/image';
-import NavBar from '../components/NavBar';
 
 export default function Intro() {
   return (
     <section id="intro" className="sm:min-h-[90vh] flex flex-col">
-      <NavBar />
-      <div className="flex flex-col flex-grow py-10 sm:py-40 p-4 sm:p-8">
+      <div className="flex flex-col flex-grow py-10 sm:py-28 p-4 sm:p-8">
         <div className="flex flex-wrap flex-col items-center sm:flex-row sm:items-end justify-center sm:justify-start">
           <h1 className="text-header font-bold mb-4 sm:mb-6 sm:mr-8 text-center sm:text-left">
             Hi I&apos;m Srishti Rai

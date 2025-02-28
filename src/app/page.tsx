@@ -1,19 +1,19 @@
-import Intro from './sections/Intro';
-import Skills from './sections/Skills';
-import Education from './sections/Education';
-import Experience from './sections/Experience';
-import Projects from './sections/Projects';
-import About from './sections/About';
+import Intro from "./intro/page";
+import Skills from "./skills/page";
+import Education from "./education/page";
+import Experience from "./experience/page";
+import Projects from "./projects/page";
+import About from "./about/page";
 
 export default function Home() {
   return (
-    <div className="mx-[10px] mt-[5px] sm:mx-[40px] sm:mt-[30px] md:mx-[60px] md:mt-[40px]">
-      <Intro />
-      <Skills />
-      <Education />
-      <Experience />
-      <Projects />
-      <About />
-    </div>
+    <div className="mx-[10px] mt-[80px] sm:mx-[40px] sm:mt-[100px] md:mx-[60px] md:mt-[120px]">
+        <Intro />
+        <Skills />
+        <Education />
+        <Experience />
+        <Projects />
+        <About />
+      </div>
   );
 }

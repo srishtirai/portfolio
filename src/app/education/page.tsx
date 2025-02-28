@@ -7,8 +7,8 @@ export default function Education() {
   const [activeTab, setActiveTab] = useState("northeastern"); // Tracks the active tab
 
   return (
-    <section id="education" className="sm:min-h-[90vh] p-4 sm:p-8 mt-10 sm:mt-20">
-      <div className="flex sm:flex-row flex-col items-center mb-8">
+    <section id="education" className="sm:min-h-[90vh] p-4 sm:p-8 mt-10 sm:mt-20 py-10 sm:py-36">
+      <div className="flex sm:flex-row flex-col items-center mb-2">
         <h1 className="text-header font-bold sm:mr-4">Education</h1>
         <Avatar bubbleMessage="Degrees and debugging — both require patience!" sectionName="education" />
       </div>
