@@ -9,8 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@huggingface/hub": "^1.0.1",
+    "@huggingface/inference": "^2.8.1",
+    "@langchain/community": "^0.3.33",
     "@supabase/supabase-js": "^2.49.1",
     "@tensorflow/tfjs": "^4.22.0",
+    "dotenv": "^16.4.7",
     "faiss": "^1.0.0",
     "framer-motion": "^12.4.7",
     "gsap": "^3.12.7",

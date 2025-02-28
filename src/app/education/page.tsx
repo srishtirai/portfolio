@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Avatar from "../components/Avatar";
+import Avatar from "../components/avatar";
 
 export default function Education() {
   const [activeTab, setActiveTab] = useState("northeastern"); // Tracks the active tab
