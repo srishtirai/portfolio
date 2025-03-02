@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import NavBar from "./components/navBar"; // Import Navbar globally
-// import Chatbot from "./components/chatbot";
+import NavBar from "@/components/navBar";
+// import Chatbot from "@/components/chatbot";
 
 export const metadata: Metadata = {
   title: "My Portfolio",

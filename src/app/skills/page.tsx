@@ -1,7 +1,7 @@
 "use client";
 
-import SkillsTab from "../components/skillsTab";
-import Avatar from '../components/avatar';
+import SkillsTab from "@/components/skillsTab";
+import Avatar from '@/components/avatar';
 
 export type Skill = {
   label: string;

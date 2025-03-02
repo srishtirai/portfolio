@@ -8,8 +8,7 @@ const nextConfig: NextConfig = {
     SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
     SUPABASE_BUCKET_NAME: process.env.SUPABASE_BUCKET_NAME,
   },
-  reactStrictMode: true,
-  swcMinify: true,
+  reactStrictMode: true
 };
 
 export default nextConfig;
