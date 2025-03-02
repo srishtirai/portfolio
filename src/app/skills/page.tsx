@@ -1,17 +1,7 @@
 "use client";
 
-import SkillsTab from "@/components/skillsTab";
+import SkillsTab, { SkillsListProp } from "@/components/skillsTab";
 import Avatar from '@/components/avatar';
-
-export type Skill = {
-  label: string;
-  imgSrc: string;
-};
-
-export type SkillsListProp = {
-  category: string;
-  skills: Skill[];
-};
 
 export default function Skills() {
   const skillList: SkillsListProp[] = [

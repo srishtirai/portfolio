@@ -1,5 +1,14 @@
 import Image from 'next/image';
-import { SkillsListProp } from '../skills/page';
+
+export type Skill = {
+    label: string;
+    imgSrc: string;
+};
+  
+export type SkillsListProp = {
+    category: string;
+    skills: Skill[];
+};
 
 export default function SkillsTab({ category, skills }: SkillsListProp) {
     return (
