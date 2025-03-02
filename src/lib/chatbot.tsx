@@ -12,7 +12,7 @@ const supabase = createClient(
 const hf = new HfInference(process.env.HUGGINGFACE_API_KEY!);
 
 // ✅ Ensure embeddings are stored only once
-async function storeEmbeddings(textChunks: string[]) {
+async function storeEmbeddings() {
   console.log("📌 Checking if embeddings already exist in Supabase...");
 
   const { count } = await supabase
@@ -93,8 +93,8 @@ async function retrieveSimilarEmbeddings(query: string) {
     return [];
   }
 
-  console.log("📑 Retrieved embeddings:", data.map((row: any) => row.text));
-  return data.map((row: any) => row.text);
+  console.log("📑 Retrieved embeddings:", data.map((row: { text: unknown; }) => row.text));
+  return data.map((row: { text: unknown; }) => row.text);
 }
 
 // ✅ Query Chatbot with AI Model
@@ -103,7 +103,7 @@ export async function queryChatbot(query: string) {
     console.log("💬 Querying chatbot with:", query);
 
     // Ensure embeddings exist
-    await storeEmbeddings([]);
+    await storeEmbeddings();
 
     console.log("🔎 Retrieving similar embeddings...");
     const similarTexts = await retrieveSimilarEmbeddings(query);
