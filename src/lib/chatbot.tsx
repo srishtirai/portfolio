@@ -11,7 +11,8 @@ const supabase = createClient(
 
 const hf = new HfInference(process.env.HUGGINGFACE_API_KEY!);
 
-async function loadKnowledgeBase() {
+// ✅ Ensure embeddings are stored only once
+async function storeEmbeddings(textChunks: string[]) {
   console.log("📌 Checking if embeddings already exist in Supabase...");
 
   const { count } = await supabase
@@ -29,38 +30,22 @@ async function loadKnowledgeBase() {
     .createSignedUrl("knowledge_base.json", 60 * 60);
 
   if (error) {
-    console.error("Supabase Storage Error:", error);
+    console.error("❌ Supabase Storage Error:", error);
     throw new Error("Error generating signed URL");
   }
 
   const response = await fetch(data.signedUrl);
   const knowledgeBase = await response.json();
-
+  
   console.log("✅ Knowledge base loaded successfully.");
 
   // ✅ Ensure textChunks is always an array
-  const textChunks = Array.isArray(knowledgeBase)
+  const cleanTextChunks = Array.isArray(knowledgeBase)
     ? knowledgeBase
     : Object.values(knowledgeBase).flat();
 
-  console.log(`📄 Processing ${textChunks.length} text chunks...`);
-  await storeEmbeddings(textChunks);
-}
-
-// ✅ Ensure `textChunks` is an array before calling `.map()`
-async function storeEmbeddings(textChunks: any[]) {
-  if (!Array.isArray(textChunks)) {
-    console.error("❌ storeEmbeddings received non-array data:", textChunks);
-    throw new Error("Invalid knowledge base format: Expected an array.");
-  }
-
-  console.log("🔄 Cleaning and filtering text data...");
-  const cleanTextChunks = textChunks
-    .map((item) => (typeof item === "string" ? item : JSON.stringify(item))) // Convert non-string to string
-    .filter((text) => text.trim().length > 0); // Remove empty values
-
-  console.log(`📑 ${cleanTextChunks.length} valid text chunks remaining after cleaning.`);
-
+  console.log(`📄 Processing ${cleanTextChunks.length} text chunks...`);
+  
   console.log("🔄 Generating new embeddings...");
   const embeddings = new HuggingFaceInferenceEmbeddings({
     model: "sentence-transformers/all-MiniLM-L6-v2",
@@ -77,39 +62,71 @@ async function storeEmbeddings(textChunks: any[]) {
   console.log("✅ Embeddings stored successfully.");
 }
 
+// ✅ Retrieve similar embeddings before querying AI
+async function retrieveSimilarEmbeddings(query: string) {
+  console.log("🔎 Generating query embedding...");
+  const embeddings = new HuggingFaceInferenceEmbeddings({
+    model: "sentence-transformers/all-MiniLM-L6-v2",
+    apiKey: process.env.HUGGINGFACE_API_KEY!,
+  });
 
-// Query Function (Uses Supabase, NOT JSON)
+  // ✅ Improve query matching by adding alternative forms
+  const queryVariations = [
+    query, 
+    query.replace("Srishti", "Srishti C Rai"), 
+    query.replace("C Rai", "Srishti C Rai"),
+    query.replace("her", "Srishti C Rai")
+  ];
+
+  const queryVectors = await Promise.all(queryVariations.map(q => embeddings.embedQuery(q)));
+  const primaryVector = queryVectors[0];
+
+  console.log("🔎 Searching for similar embeddings in Supabase...");
+  const { data, error } = await supabase.rpc("match_chatbot_embeddings", {
+    query_embedding: primaryVector,
+    match_threshold: 0.65, // Lower threshold to improve partial matches
+    match_count: 3,
+  });
+
+  if (error) {
+    console.error("❌ Supabase Search Error:", error);
+    return [];
+  }
+
+  console.log("📑 Retrieved embeddings:", data.map((row: any) => row.text));
+  return data.map((row: any) => row.text);
+}
+
+// ✅ Query Chatbot with AI Model
 export async function queryChatbot(query: string) {
   try {
     console.log("💬 Querying chatbot with:", query);
-    await loadKnowledgeBase();
+
+    // Ensure embeddings exist
+    await storeEmbeddings([]);
 
     console.log("🔎 Retrieving similar embeddings...");
-    const { data, error } = await supabase.rpc("match_chatbot_embeddings", {
-      query_embedding: await new HuggingFaceInferenceEmbeddings({
-        model: "sentence-transformers/all-MiniLM-L6-v2",
-        apiKey: process.env.HUGGINGFACE_API_KEY!,
-      }).embedQuery(query),
-      match_threshold: 0.75,
-      match_count: 3,
-    });
+    const similarTexts = await retrieveSimilarEmbeddings(query);
 
-    if (error) {
-      console.error("❌ Supabase Search Error:", error);
-      return "I couldn't find an answer.";
+    if (!similarTexts.length) {
+      console.log("⚠️ No relevant context found.");
+      return "I'm not sure, but I can answer questions about my skills and projects.";
     }
 
-    console.log("📑 Retrieved context:", data.map((row: any) => row.text).join("\n"));
+    console.log("📑 Retrieved context:", similarTexts.join("\n"));
 
     console.log("🤖 Generating AI response...");
     const response = await hf.textGeneration({
-      model: "mistralai/Mistral-7B-Instruct",
-      inputs: `Use this context: ${data.map((row: any) => row.text).join("\n")}. Answer this query: ${query}`,
+      model: process.env.HUGGINGFACE_MODEL!,
+      inputs: `${similarTexts.join("\n")}\nAnswer: `,
       parameters: { max_new_tokens: 200, temperature: 0.7, do_sample: true },
     });
 
-    console.log("📝 AI Response:", response.generated_text);
-    return response.generated_text || "I couldn't generate a response.";
+    // ✅ Extract the actual answer (Remove any extra context)
+    const answer = response.generated_text?.split("Answer:")[1]?.trim() || response.generated_text;
+    console.log("📝 AI Response:", answer);
+
+    return answer || "I couldn't generate a response.";
   } catch (error) {
     console.error("❌ Chatbot Error:", error);
     return "An error occurred while processing your request.";

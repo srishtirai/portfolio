@@ -7,7 +7,7 @@ import About from "./about/page";
 
 export default function Home() {
   return (
-    <div className="mx-[10px] mt-[80px] sm:mx-[40px] sm:mt-[100px] md:mx-[60px] md:mt-[120px]">
+    <div>
         <Intro />
         <Skills />
         <Education />
