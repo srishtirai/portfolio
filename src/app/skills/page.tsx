@@ -87,7 +87,7 @@ export default function Skills() {
           <h1 className="text-header font-bold sm:mr-4">Skills</h1> {/* Add margin-right to separate the title from the avatar */}
           <Avatar bubbleMessage="I speak fluent JavaScript… and a few others!" sectionName="skills"/> {/* Avatar positioned next to the header */}
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-12 justify-center items-center w-full max-w-[1500px] mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-12 justify-center items-center w-full max-w-[1500px] mx-auto">
           {skillList.map((item) => (
             <SkillsTab key={item.category} category={item.category} skills={item.skills} />
           ))}

@@ -41,7 +41,7 @@ export default function NavBar() {
   };
 
   return (
-    <div className="flex flex-wrap items-center justify-between bg-white z-10 p-4 fixed top-0 w-full shadow-md">
+    <div className="flex flex-wrap items-center justify-between bg-white z-10 p-4 sm:fixed top-0 sm:w-full sm:shadow-md">
       {/* Navigation Links */}
       <div className="hidden sm:flex flex-wrap items-center gap-3 sm:gap-8 mx-[10px] sm:mx-[40px] md:mx-[60px]">
         {indexes.map((index) => (

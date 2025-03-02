@@ -25,7 +25,7 @@ export default function Education() {
 
   return (
     <section id="education" className="sm:min-h-[80vh] py-10 sm:py-36">
-      <div className="flex sm:flex-row flex-col items-center mb-10">
+      <div className="flex sm:flex-row flex-col items-center sm:mb-10">
         <h1 className="text-header font-bold sm:mr-4">Education</h1>
         <Avatar bubbleMessage="Degrees and debugging — both require patience!" sectionName="education" />
       </div>
@@ -38,16 +38,13 @@ export default function Education() {
               width={60} 
               height={60}
             />
-            <div className="flex flex-col ml-4 w-full">
-              <div className="flex justify-between mt-3">
-                <h3 className="text-subheader sm:text-3xl font-bold sm:mb-1">{edu.college}</h3>
-                <p>{edu.location}</p>
-              </div>
+            <div className="flex justify-between flex-col sm:flex-row mt-3 ml-4 w-full">
+              <h3 className="text-subheader sm:text-3xl font-bold sm:mb-1">{edu.college}</h3>
+              <p>{edu.location}</p>
             </div>
           </div>
-
-          <div className="ml-14 pl-4 space-y-6">
-            <div className="flex justify-between text-primary">
+          <div className="sm:ml-14 sm:pl-4 mt-3 space-y-6">
+            <div className="flex flex-col sm:flex-row justify-between text-primary">
               <h3 className="font-bold text-body">{edu.degree}</h3>
               <p>{edu.duration}</p>
             </div>

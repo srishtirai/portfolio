@@ -71,7 +71,7 @@ export default function Experience() {
 
   return (
     <section id="experience" className="sm:min-h-[80vh] py-10 sm:py-36">
-      <div className="flex sm:flex-row flex-col items-center mb-10">
+      <div className="flex sm:flex-row flex-col items-center sm:mb-10">
         <h1 className="text-header font-bold sm:mr-4">Experience</h1>
         <Avatar bubbleMessage="From concept to production—been there, built that." sectionName="experience" />
       </div>
@@ -84,11 +84,9 @@ export default function Experience() {
               width={60} 
               height={60}
             />
-            <div className="flex flex-col ml-4 w-full">
-              <div className="flex justify-between mt-3">
-                <h3 className="text-subheader sm:text-3xl font-bold sm:mb-1">{exp.company}</h3>
-                <p>{exp.location}</p>
-              </div>
+            <div className="flex flex-col sm:flex-row justify-between ml-4 w-full mt-3">
+              <h3 className="text-subheader sm:text-3xl font-bold sm:mb-1">{exp.company}</h3>
+              <p>{exp.location}</p>
             </div>
           </div>
 
@@ -96,7 +94,7 @@ export default function Experience() {
             {exp.roles.map((role) => (
               <div key={role.title} className="relative">
                 <div className="absolute -left-[25px] -top-[-10px] w-4 h-4 bg-accent rounded-full"></div>
-                <div className="flex justify-between text-primary ml-3">
+                <div className="flex justify-between flex-col sm:flex-row text-primary ml-3">
                   <h3 className="font-bold text-body">{role.title}</h3>
                   <p>{role.duration}</p>
                 </div>

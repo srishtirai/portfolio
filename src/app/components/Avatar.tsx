@@ -40,7 +40,7 @@ export default function Avatar({ bubbleMessage, sectionName }: AvatarProps) {
   }, [sectionName]);
 
   return (
-    <div ref={avatarRef} className="avatar-wrapper mt-10 sm:mt-0">
+    <div ref={avatarRef} className="avatar-wrapper mt-10 sm:mt-0 w-full">
       <div className="avatar-image">
         <Image 
           src="/images/head.svg" 
