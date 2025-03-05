@@ -49,7 +49,7 @@ export default function NavBar() {
     <div
       className={`sm:fixed top-0 sm:w-full z-10 transition-all right-0 ${
         scrolled ? "py-2 bg-white shadow-md" : "py-4"
-      } flex justify-between items-center px-6 sm:px-12`}
+      } flex justify-end sm:justify-between items-center px-6 sm:px-12`}
     >
       {/* Navigation Links */}
       <div className="hidden sm:flex space-x-6">
@@ -73,7 +73,7 @@ export default function NavBar() {
               alt={link.alt}
               width={35}
               height={35}
-              className="transition-transform transform hover:scale-110 hover:opacity-80 sm:w-[35px] sm:h-[35px] w-[25px] h-[25px]"
+              className="transition-transform transform hover:scale-110 hover:opacity-80 sm:w-[35px] sm:h-[35px] w-[30px] h-[30px]"
             />
           </a>
         ))}

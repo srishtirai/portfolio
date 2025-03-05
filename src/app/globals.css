@@ -10,6 +10,11 @@
   --accent: #C0A3CF;
 }
 
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
 body {
   color: var(--accent);
   background: var(--background);

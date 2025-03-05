@@ -5,16 +5,16 @@ import { motion } from "framer-motion";
 
 export default function Intro() {
   return (
-    <section id="intro" className="relative sm:min-h-[80vh] flex flex-col justify-center">
+    <section id="intro" className="relative min-h-[80vh] flex flex-col justify-center">
       {/* Floating Background Elements */}
       <div className="absolute inset-0 -z-10">
         <motion.div
-          className="absolute w-20 h-20 sm:w-36 sm:h-36 bg-accent opacity-20 rounded-full top-10 left-10"
+          className="absolute w-20 h-20 sm:w-36 sm:h-36 bg-accent opacity-20 rounded-full top-20 sm:top-10 left-10"
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute w-24 h-24 sm:w-40 sm:h-40 bg-accent opacity-10 rounded-full bottom-20 right-20"
+          className="absolute w-24 h-24 sm:w-40 sm:h-40 bg-accent opacity-10 rounded-full right-10 bottom-20 sm:right-20"
           animate={{ y: [0, -10, 0] }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         />
