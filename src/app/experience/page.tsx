@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Avatar from "@/components/avatar";
 
@@ -7,17 +9,16 @@ export default function Experience() {
       company: "Sentinel Group",
       imgSrc: "/images/sentinel.svg",
       location: "Wakefield, MA",
-      duration: "May 2025 - Dec 2024",
       roles: [
         {
           title: "Software Development Co-op",
-          duration: "May 2025 - Dec 2024",
+          duration: "May 2024 - Dec 2024",
           projects: [
             {
               title: "Automated Folder Management System",
               description:
-                "A solution built to streamline folder creation and management processes using NestJS for automation and Next.js for a user-friendly admin interface. It includes robust compliance monitoring and follows Test-Driven Development (TDD) for maintainable code.",
-              techStack: "TypeScript, Next.js, Tailwind CSS, Postgres, Nest.js, AWS(EC2)",
+                "Built an automation system for folder management using Nest.js, integrating compliance monitoring and a user-friendly Next.js admin panel with TDD for maintainability.",
+              techStack: "TypeScript, Next.js, Tailwind CSS, Postgres, Nest.js, AWS (EC2)",
             },
           ],
         },
@@ -27,7 +28,6 @@ export default function Experience() {
       company: "LG Soft India",
       imgSrc: "/images/lg.svg",
       location: "Bengaluru, India",
-      duration: "Mar 2020 - Aug 2023",
       roles: [
         {
           title: "Research Engineer",
@@ -36,7 +36,7 @@ export default function Experience() {
             {
               title: "OTA Updates Portal & Battery Management System",
               description:
-                "A dynamic application designed to manage and monitor battery site statuses and firmware updates. Built with React for the frontend, it integrates Battery Management System data, enhances modularity with reusable components, and features secure APIs for platform authentication and authorization.",
+                "Developed an application to manage and monitor battery statuses & firmware updates. Used React for the frontend, modular components for reusability, and secure APIs for authentication.",
               techStack: "React, Redux, Docker, AWS (S3, IAM), SASS, Java, Spring Boot, ChartJS, AGGrid",
             },
           ],
@@ -48,7 +48,7 @@ export default function Experience() {
             {
               title: "TV, Signage, & Entertainment System Development",
               description:
-                "Contributed to the webOS ecosystem by developing gallery and calendar apps using EnactJS for TV and signage. Created a Flutter proof of concept with network and Bluetooth features, designed accessible UIs for automotive and in-flight entertainment systems, and contributed to the webOS API for the TV settings app platform.",
+                "Worked on the webOS ecosystem, developing gallery and calendar apps using EnactJS for TVs and signage. Built a Flutter proof-of-concept for network and Bluetooth-based features.",
               techStack: "React, Redux, EnactJS, CSS, WebOS",
             },
           ],
@@ -60,7 +60,7 @@ export default function Experience() {
             {
               title: "EnactJS & webOS Development",
               description:
-                "Gained hands-on experience with EnactJS, deepening understanding of modern web practices, while exploring various webOS services to lay the foundation for future contributions.",
+                "Explored modern web development with EnactJS, contributing to webOS services and UI accessibility improvements.",
               techStack: "React, Redux, EnactJS, CSS, WebOS",
             },
           ],
@@ -75,41 +75,39 @@ export default function Experience() {
         <h1 className="text-header font-bold sm:mr-4">Experience</h1>
         <Avatar bubbleMessage="From concept to production—been there, built that." sectionName="experience" />
       </div>
-      {experience.map((exp) => (
-         <div className="p-5 bg-white rounded-lg shadow-lg mb-10" key={exp.company}>
-          <div className="flex flex-row sm:mb-2">
-            <Image
-              src={exp.imgSrc} 
-              alt={exp.company} 
-              width={60} 
-              height={60}
-            />
-            <div className="flex flex-col sm:flex-row justify-between ml-4 w-full mt-3">
-              <h3 className="text-subheader sm:text-3xl font-bold sm:mb-1">{exp.company}</h3>
-              <p>{exp.location}</p>
-            </div>
-          </div>
 
-          <div className="ml-6 pl-4 border-l-2 border-accent border-opacity-50 space-y-6">
-            {exp.roles.map((role) => (
-              <div key={role.title} className="relative">
-                <div className="absolute -left-[25px] -top-[-10px] w-4 h-4 bg-accent rounded-full"></div>
-                <div className="flex justify-between flex-col sm:flex-row text-primary ml-3">
-                  <h3 className="font-bold text-body">{role.title}</h3>
-                  <p>{role.duration}</p>
-                </div>
+      <div className="flex flex-col space-y-8 mx-auto">
+        {experience.map((exp) => (
+          <div
+            key={exp.company}
+            className="p-5 bg-white rounded-lg shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+          >
+            <div className="flex items-center">
+              <Image src={exp.imgSrc} alt={exp.company} width={50} height={50} />
+              <div className="ml-4">
+                <h3 className="text-subheader sm:text-3xl font-bold">{exp.company}</h3>
+                <p>{exp.location}</p>
+              </div>
+            </div>
+
+            {exp.roles.map((role, roleIndex) => (
+              <div key={roleIndex} className="mt-6">
+                <h3 className="font-bold text-body">{role.title}</h3>
+                <p>{role.duration}</p>
+
                 {role.projects &&
-                  role.projects.map((project) => (
-                    <div key={project.title} className="mt-5 ml-3">
-                      <p className="text-primary">{project.title}</p>
-                      <p>{project.description}</p>
+                  role.projects.map((project, projectIndex) => (
+                    <div key={projectIndex} className="mt-3 pl-4 border-l-2 border-accent border-opacity-50">
+                      <p className="font-semibold text-primary">{project.title}</p>
+                      <p className="text-xs sm:text-sm">{project.description}</p>
+                      {/* <p className="text-xs sm:text-sm italic mt-1">{project.techStack}</p> */}
                     </div>
                   ))}
               </div>
             ))}
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </section>
   );
 }

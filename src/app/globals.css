@@ -14,7 +14,7 @@ body {
   color: var(--accent);
   background: var(--background);
   font-family: 'JetBrains Mono', monospace;
-  font-size: 1rem; /* Set base font size for small screens */
+  font-size: 0.8rem; /* Set base font size for small screens */
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -42,6 +42,10 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Large screen styles */
 @media (min-width: 640px) {
+  body {
+    font-size: 1rem;
+  }
+  
   .text-header {
     font-size: 3.75rem; /* For larger screens (60px equivalent) */
   }

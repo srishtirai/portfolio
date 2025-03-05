@@ -8,7 +8,8 @@
     left: 60px;
     width: fit-content;
     min-width: 250px;
-    padding: 15px 20px;
+    height: 70px;
+    padding: 20px 20px;
     font-size: 15px;
     text-align: center;
     border-radius: 50%;
@@ -30,36 +31,37 @@
     width: 22px;
     height: 22px;
     bottom: -13px;
-    right: calc(100% - 30px); /* Centers the circle under the bubble */
+    right: calc(100% - 30px);
   }
   
   .thought-bubble::after {
     width: 13px;
     height: 13px;
     bottom: -25px;
-    right: calc(100% - 10px); /* Centers the smaller circle under the larger one */
+    right: calc(100% - 10px);
   }
   
   @media (max-width: 640px) {
     .thought-bubble {
-      top: -35px; /* Adjust the top position for mobile */
-      left: 50px; /* Adjust left for better alignment on smaller screens */
-      min-width: 180px; /* Decrease width for smaller screens */
-      padding: 10px 8px; /* Reduce padding for smaller screens */
-      font-size: 12px; /* Smaller font size */
+      top: -35px;
+      left: 50px;
+      min-width: 180px;
+      height: 50px;
+      padding: 15px 10px;
+      font-size: 12px;
     }
   
     .thought-bubble::before {
-      width: 12px; /* Reduce size of the larger circle */
+      width: 12px; 
       height: 12px;
       bottom: -2px;
-      right: calc(100% - 10px); /* Adjust the position for smaller screens */
+      right: calc(100% - 10px);
     }
   
     .thought-bubble::after {
-      width: 5px; /* Reduce size of the smaller circle */
+      width: 5px;
       height: 5px;
       bottom: -10px;
-      right: calc(100% - 0px); /* Adjust the position for smaller screens */
+      right: calc(100% - 0px);
     }
   }

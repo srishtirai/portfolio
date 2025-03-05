@@ -57,7 +57,7 @@ export default function NavBar() {
           <button
             key={index.targetId}
             onClick={() => handleNavigation(index.targetId)}
-            className="relative text-primary font-medium text-small transition-all duration-300 hover:underline underline-offset-8"
+            className="relative text-primary font-medium text-small transition-all duration-300 hover:underline hover:scale-110 hover:text-accent underline-offset-8"
           >
             {index.label}
           </button>
