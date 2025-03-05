@@ -10,7 +10,7 @@ export default function About() {
       {/* About Content */}
       <div className="flex flex-col-reverse sm:flex-row items-center sm:items-start sm:space-x-10">
         {/* Text Section */}
-        <div className="sm:w-1/2 text-primary">
+        <div className="sm:w-3/5 text-primary">
           <p className="hidden sm:block mb-4">
             I&apos;m a <strong>full-stack developer</strong> with a passion for <strong>automation, UI/UX, and AI-driven applications</strong>. 
             With experience at <strong>Sentinel Group</strong> and <strong>LG Soft India</strong>, I&apos;ve worked on <strong>enterprise automation, scalable architectures, and performance optimization</strong>. 
@@ -31,13 +31,13 @@ export default function About() {
         </div>
 
         {/* Image Section */}
-        <div className="sm:w-1/3 flex justify-center">
+        <div className="sm:w-2/5 flex justify-center">
           <Image
-            src="/images/profile.png" 
+            src="/images/about_me.jpeg" 
             alt="Srishti C Rai"
             width={300}
             height={300}
-            className="rounded-xl shadow-xl object-cover"
+            className="rounded-xl shadow-xl object-cover sm:w-[300px] sm:h-[400px] w-[150px] h-[200px]"
           />
         </div>
       </div>

@@ -2,10 +2,18 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function NavBar() {
   const router = useRouter();
   const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const indexes = [
     { label: "Intro", targetId: "intro", href: "/" },
@@ -17,23 +25,20 @@ export default function NavBar() {
   ];
 
   const links = [
-    { src: "/images/linkedin.svg", alt: "linkedin", url: "https://www.linkedin.com/in/srishti-c-rai/" },
-    { src: "/images/github.svg", alt: "github", url: "https://github.com/srishtirai" },
-    { src: "/images/email.svg", alt: "email", url: "mailto:srishtiraic@gmail.com" }
+    { src: "/images/linkedin.svg", alt: "LinkedIn", url: "https://www.linkedin.com/in/srishti-c-rai/" },
+    { src: "/images/github.svg", alt: "GitHub", url: "https://github.com/srishtirai" },
+    { src: "/images/email.svg", alt: "Email", url: "mailto:srishtiraic@gmail.com" }
   ];
 
-  // Handle navigation and smooth scrolling
   const handleNavigation = (targetId: string) => {
     if (pathname === "/") {
-      // If on home page, scroll smoothly and update the URL
       const section = document.getElementById(targetId);
       if (section) {
         section.scrollIntoView({ behavior: "smooth" });
-        window.history.pushState(null, "", '/');
+        window.history.pushState(null, "", "/");
       }
     } else {
-      // Navigate to home and scroll after page loads
-      router.push('/');
+      router.push("/");
       setTimeout(() => {
         document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth" });
       }, 500);
@@ -41,27 +46,35 @@ export default function NavBar() {
   };
 
   return (
-    <div className="flex flex-wrap items-center justify-between bg-white z-10 p-4 sm:fixed top-0 sm:w-full sm:shadow-md">
+    <div
+      className={`sm:fixed top-0 sm:w-full z-10 transition-all right-0 ${
+        scrolled ? "py-2 bg-white shadow-md" : "py-4"
+      } flex justify-between items-center px-6 sm:px-12`}
+    >
       {/* Navigation Links */}
-      <div className="hidden sm:flex flex-wrap items-center gap-3 sm:gap-8 mx-[10px] sm:mx-[40px] md:mx-[60px]">
+      <div className="hidden sm:flex space-x-6">
         {indexes.map((index) => (
-          <div className="inline-block text-center" key={index.targetId}>
-            <button
-              onClick={() => handleNavigation(index.targetId)}
-              className={`text-primary text-small font-medium ${pathname.includes(index.href) ? "font-bold" : ""}`}
-            >
-              {index.label}
-            </button>
-            <div className="w-full bg-accent font-thin border border-accent"></div>
-          </div>
+          <button
+            key={index.targetId}
+            onClick={() => handleNavigation(index.targetId)}
+            className="relative text-primary font-medium text-small transition-all duration-300 hover:underline underline-offset-8"
+          >
+            {index.label}
+          </button>
         ))}
       </div>
 
-      {/* Social Media Icons with Clickable Links */}
-      <div className="flex items-center gap-2 sm:gap-4 mt-4 sm:mt-0 ml-auto mx-[10px] sm:mx-[40px] md:mx-[60px]">
+      {/* Social Media Icons */}
+      <div className="flex items-center space-x-4">
         {links.map((link) => (
           <a key={link.alt} href={link.url} target="_blank" rel="noopener noreferrer">
-            <Image src={link.src} alt={link.alt} width={30} height={30} className="sm:w-9 sm:h-9 cursor-pointer" />
+            <Image
+              src={link.src}
+              alt={link.alt}
+              width={35}
+              height={35}
+              className="transition-transform transform hover:scale-110 hover:opacity-80 sm:w-[35px] sm:h-[35px] w-[25px] h-[25px]"
+            />
           </a>
         ))}
       </div>

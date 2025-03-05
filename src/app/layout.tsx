@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased">
         <NavBar />
-        <main className="mx-[10px] mt-[80px] sm:mx-[40px] sm:mt-[100px] md:mx-[60px] md:mt-[120px]">{children}</main>
+        <main className="mx-[10px] mt-[80px] sm:mx-[60px] sm:mt-[100px] md:mx-[80px] md:mt-[120px]">{children}</main>
         <Chatbot />
         <Footer />
       </body>
