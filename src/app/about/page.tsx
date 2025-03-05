@@ -17,7 +17,7 @@ export default function About() {
           </p>
           
           <p className="hidden sm:block mb-4">
-            But let’s be real—when I’m not building software, I’m probably <strong>painting, writing {" "}
+            But let’s be real—when I’m not building software, I’m probably <strong>painting</strong>(That little sketch you see? It’s something I doodled on my phone), <strong>writing {" "}
               <Link 
               href="https://www.yourquote.in/srishti-c-rai-m1oj/quotes" 
               target="_blank" 

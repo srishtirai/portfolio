@@ -31,7 +31,7 @@ export default function Intro() {
         >
           Hi I&apos;m Srishti Rai
         </motion.h1>
-        <Image className="mb-12" src="/images/headshot.svg" alt="headshot" width={80} height={80} unoptimized />
+        <Image className="mb-12" src="/images/headshot.svg" alt="headshot" width={100} height={100} unoptimized />
       </div>
 
       {/* Subheader */}
