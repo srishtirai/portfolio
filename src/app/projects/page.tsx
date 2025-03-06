@@ -38,12 +38,11 @@ export default function Projects() {
           >
             {/* Front Side */}
             <div className="relative w-full h-full flex flex-col items-center">
-              <div className="mb-auto relative w-full h-[220px] overflow-hidden rounded-lg">
+              <div className="mb-auto relative w-full h-[220px] overflow-hidden">
                 <Image 
                   src={project.imgSrc} 
                   alt={project.name} 
                   fill 
-                  className="object-contain"
                 />
               </div>
               <h4 className="text-body text-center text-primary bg-accent bg-opacity-30 py-2 w-full font-bold">

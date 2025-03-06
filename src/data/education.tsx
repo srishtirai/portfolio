@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export const education = [
     {
       college: "Northeastern University",
@@ -15,14 +17,14 @@ export const education = [
           description: (
             <>
               Mentoring undergraduate students in developing web applications.{" "}
-              <a
+              <Link
                 href="https://oasisneu.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-accent underline hover:text-hover transition-colors duration-300"
               >
                 Learn more
-              </a>
+              </Link>
             </>
           ),
         },

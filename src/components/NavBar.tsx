@@ -3,6 +3,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function NavBar() {
   const router = useRouter();
@@ -67,7 +68,7 @@ export default function NavBar() {
       {/* Social Media Icons */}
       <div className="flex items-center space-x-4">
         {links.map((link) => (
-          <a key={link.alt} href={link.url} target="_blank" rel="noopener noreferrer">
+          <Link key={link.alt} href={link.url} target="_blank" rel="noopener noreferrer">
             <Image
               src={link.src}
               alt={link.alt}
@@ -75,7 +76,7 @@ export default function NavBar() {
               height={35}
               className="transition-transform transform hover:scale-110 hover:opacity-80 sm:w-[35px] sm:h-[35px] w-[30px] h-[30px]"
             />
-          </a>
+          </Link>
         ))}
       </div>
     </div>
