@@ -3,7 +3,6 @@ import "./globals.css";
 import NavBar from "@/components/navBar";
 import Footer from "@/components/footer";
 import Chatbot from "@/components/chatbot";
-// import Chatbot from "@/components/chatbot";
 
 export const metadata: Metadata = {
   title: "My Portfolio",

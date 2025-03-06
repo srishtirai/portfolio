@@ -4,38 +4,9 @@ import { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Avatar from "@/components/avatar";
+import { projects } from "@/data/projects";
 
 export default function Projects() {
-  const projects = [
-    {
-      name: "Portfolio",
-      description: "A showcase of my work, projects, and experience.",
-      imgSrc: "/images/portfolio.png",
-      link: "https://github.com/srishtirai/portfolio",
-      techStack: "Next.js, Tailwind CSS, TypeScript",
-    },
-    {
-      name: "Movie Booking App",
-      description: "A full-stack booking system for seamless movie reservations.",
-      imgSrc: "/images/movie-booking.png",
-      link: "https://github.com/srishtirai/movie-booking",
-      techStack: "Java, Spring Boot, Hibernate, MySQL, Thymeleaf",
-    },
-    {
-      name: "Stock Price Prediction",
-      description: "An ML model that predicts stock trends based on historical data.",
-      imgSrc: "/images/stock-predictor.png",
-      link: "https://github.com/srishtirai/stock-predictor",
-      techStack: "Flask, Python, Scikit-learn, Pandas, Matplotlib",
-    },
-    {
-      name: "InHabit - Civic Tech",
-      description: "Gamified user engagement platform for civic participation.",
-      imgSrc: "/images/inhabit.png",
-      link: "https://github.com/srishtirai/inhabit",
-      techStack: "React, Flask, MySQL, CSS",
-    },
-  ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);

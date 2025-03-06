@@ -5,11 +5,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import "./avatar.css";
-
-interface AvatarProps {
-  bubbleMessage: string;
-  sectionName: string;
-}
+import { AvatarProps } from "@/utils/types";
 
 export default function Avatar({ bubbleMessage, sectionName }: AvatarProps) {
   const avatarRef = useRef(null);
@@ -29,8 +25,8 @@ export default function Avatar({ bubbleMessage, sectionName }: AvatarProps) {
           duration: 0.5,
           scrollTrigger: {
             trigger: sectionElement,
-            start: "top 50%", // Adjust this value to control when the avatar starts fading in
-            end: "top 10%", // Adjust this value to control when the avatar starts fading out
+            start: "top 50%",
+            end: "top 10%",
             scrub: true,
             toggleActions: "play none none reverse"
           }
