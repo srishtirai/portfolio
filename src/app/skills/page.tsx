@@ -1,5 +1,5 @@
-import Avatar from '@/components/avatar';
-import SkillsTab from '@/components/skillsTab';
+import Avatar from '@/components/Avatar';
+import SkillsTab from '@/components/SkillsTab';
 import { skillList } from '@/data/skills';
 
 export default function Skills() {

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
-import "./avatar.css";
+import "./Avatar.css";
 import { AvatarProps } from "@/utils/types";
 
 export default function Avatar({ bubbleMessage, sectionName }: AvatarProps) {

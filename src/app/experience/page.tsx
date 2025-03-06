@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Avatar from "@/components/avatar";
+import Avatar from "@/components/Avatar";
 import { experience } from "@/data/experience";
 
 export default function Experience() {
