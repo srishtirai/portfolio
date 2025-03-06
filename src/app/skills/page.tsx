@@ -1,5 +1,3 @@
-"use client";
-
 import Avatar from '@/components/avatar';
 import SkillsTab from '@/components/skillsTab';
 import { skillList } from '@/data/skills';

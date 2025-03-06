@@ -8,12 +8,12 @@ import About from "./about/page";
 export default function Home() {
   return (
     <div>
-        <Intro />
-        <Skills />
-        <Education />
-        <Experience />
-        <Projects />
-        <About />
-      </div>
+      <Intro />
+      <Skills />
+      <Education />
+      <Experience />
+      <Projects />
+      <About />
+    </div>
   );
 }

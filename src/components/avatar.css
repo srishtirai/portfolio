@@ -1,3 +1,7 @@
+.avatar-wrapper {
+  position: relative;
+}
+
 .avatar-image {
     display: inline-block;
 }
