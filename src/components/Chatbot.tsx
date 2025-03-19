@@ -6,7 +6,7 @@ import Image from "next/image";
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { text: "Hi! I'm Srishti's portfolio assistant. Ask me about her **skills, experience, or projects**!", sender: "bot" }
+    { text: "Hey there! I'm here to chat about Srishti's journey, skills, and projects. Curious about something? Just ask!", sender: "bot" }
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -84,7 +84,7 @@ export default function Chatbot() {
       >
         {/* Header */}
         <div className="flex justify-between items-center mb-3">
-          <h3 className="text-lg font-bold text-primary">Chat with Srishti&apos;s Portfolio</h3>
+          <h3 className="text-lg font-bold text-primary">Ask Srishti&apos;s AI Assistant</h3>
           <button
             onClick={() => setIsOpen(false)}
             className="text-primary hover:text-accent transition-all duration-300"
