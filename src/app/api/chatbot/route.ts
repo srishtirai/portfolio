@@ -17,7 +17,7 @@ type ChunkResult = {
   id: string;
   metadata: {
     section: string;
-    [key: string]: any;
+    [key: string]: unknown;
   };
 };
 
@@ -76,7 +76,7 @@ export async function POST(request: Request) {
     }
     
     // Calculate relevance scores with category-based boosting
-    let scoredChunks = contentChunksCache.map((chunk) => {
+    const scoredChunks = contentChunksCache.map((chunk) => {
       // Base semantic similarity
       let relevanceScore = stringSimilarity.compareTwoStrings(query, chunk.content);
       
@@ -164,9 +164,12 @@ export async function POST(request: Request) {
       categories: queryCategories
     });
     
-  } catch (error: any) {
-    console.error('Error processing request:', error.message, error.stack);
-    return NextResponse.json({ error: 'Failed to process request', details: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error('Error processing request:', error.message);
+      return NextResponse.json({ error: 'Failed to process request', details: error.message }, { status: 500 });
+    }
+    return NextResponse.json({ error: 'Unknown error occurred' }, { status: 500 });
   }
 }
 
