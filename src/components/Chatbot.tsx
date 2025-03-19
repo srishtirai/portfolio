@@ -87,10 +87,9 @@ export default function Chatbot() {
           <h3 className="text-lg font-bold text-primary">Ask Srishti&apos;s AI Assistant</h3>
           <button
             onClick={() => setIsOpen(false)}
-            className="text-primary hover:text-accent transition-all duration-300"
             aria-label="Close chat"
           >
-            ✖
+            <Image src="/images/cancel.svg" alt="Chat" width={15} height={15} className="hover:w-[16px] hover:h-[16px]"/>
           </button>
         </div>
 
@@ -142,7 +141,7 @@ export default function Chatbot() {
             disabled={loading}
             aria-label="Send message"
           >
-            ➤
+            <Image src="/images/send.svg" alt="Chat" width={20} height={20}/>
           </button>
         </div>
       </div>
