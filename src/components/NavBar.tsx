@@ -9,6 +9,7 @@ export default function NavBar() {
   const router = useRouter();
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -31,6 +32,31 @@ export default function NavBar() {
     { src: "/images/email.svg", alt: "Email", url: "mailto:srishtiraic@gmail.com" }
   ];
 
+  // Track Active Section
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.3,
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    indexes.forEach((index) => {
+      const section = document.getElementById(index.targetId);
+      if (section) observer.observe(section);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   const handleNavigation = (targetId: string) => {
     if (pathname === "/") {
       const section = document.getElementById(targetId);
@@ -48,8 +74,8 @@ export default function NavBar() {
 
   return (
     <div
-      className={`sm:fixed top-0 sm:w-full z-10 transition-all right-0 ${
-        scrolled ? "py-2 bg-white shadow-md" : "py-4"
+      className={`sm:fixed top-0 sm:w-full z-10 transition-all right-0 bg-white ${
+        scrolled ? "py-2 shadow-md" : "py-4"
       } flex justify-end sm:justify-between items-center px-6 sm:px-12`}
     >
       {/* Navigation Links */}
@@ -58,7 +84,9 @@ export default function NavBar() {
           <button
             key={index.targetId}
             onClick={() => handleNavigation(index.targetId)}
-            className="relative text-primary font-medium text-small transition-all duration-300 hover:underline hover:scale-110 hover:text-accent underline-offset-8"
+            className={`relative font-medium text-small transition-all duration-300 hover:underline hover:scale-110 hover:text-accent underline-offset-8 ${
+              activeSection === index.targetId ? "text-accent scale-110 underline" : "text-primary"
+            }`}
           >
             {index.label}
           </button>
