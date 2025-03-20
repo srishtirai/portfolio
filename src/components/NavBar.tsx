@@ -23,7 +23,8 @@ export default function NavBar() {
     { label: "Education", targetId: "education", href: "/education" },
     { label: "Experience", targetId: "experience", href: "/experience" },
     { label: "Projects", targetId: "projects", href: "/projects" },
-    { label: "About", targetId: "about", href: "/about" }
+    { label: "About", targetId: "about", href: "/about" },
+    { label: "Resume", targetId: "", href: "https://drive.google.com/file/d/10LnrAKnxk3CjQnHpjtFBKEKrRQ6Z5-6-/view?usp=sharing", external: true }
   ];
 
   const links = [
@@ -79,15 +80,27 @@ export default function NavBar() {
     >
       <div className="hidden sm:flex space-x-6">
         {indexes.map((index) => (
-          <button
-            key={index.targetId}
-            onClick={() => handleNavigation(index.targetId)}
-            className={`relative font-medium text-small transition-all duration-300 hover:underline hover:scale-110 hover:text-accent underline-offset-8 ${
-              activeSection === index.targetId ? "text-accent scale-110 underline" : "text-primary"
-            }`}
-          >
-            {index.label}
-          </button>
+          index.external ? (
+            <a
+              key={index.label}
+              href={index.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative font-medium text-small transition-all duration-300 hover:underline hover:scale-110 hover:text-accent underline-offset-8 text-primary"
+            >
+              {index.label}
+            </a>
+          ) : (
+            <button
+              key={index.targetId}
+              onClick={() => handleNavigation(index.targetId)}
+              className={`relative font-medium text-small transition-all duration-300 hover:underline hover:scale-110 hover:text-accent underline-offset-8 ${
+                activeSection === index.targetId ? "text-accent scale-110 underline" : "text-primary"
+              }`}
+            >
+              {index.label}
+            </button>
+          )
         ))}
       </div>
       <div className="flex items-center space-x-4">
