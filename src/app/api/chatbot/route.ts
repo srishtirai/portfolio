@@ -16,6 +16,7 @@ function categorizeQuery(query: string): string[] {
   const lowerQuery = query.toLowerCase();
 
   const categoryPatterns = {
+    basic_information: ['name', 'location', 'reside', 'contact', 'email', 'stay'],
     education: ['study', 'studying', 'degree', 'university', 'college', 'courses', 'gpa', 'major'],
     experience: ['work', 'job', 'experience', 'company', 'position', 'role', 'career', 'professional', 'tech stack'],
     technical_skills: ['skill', 'technology', 'tech stack', 'programming', 'language', 'framework', 'tool'],
