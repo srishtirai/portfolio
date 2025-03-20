@@ -35,7 +35,7 @@ export default function Experience() {
                     <div key={projectIndex} className="mt-3 pl-4 border-l-2 border-accent border-opacity-50">
                       <p className="font-semibold text-primary">{project.title}</p>
                       <p className="text-xs sm:text-sm">{project.description}</p>
-                      {/* <p className="text-xs sm:text-sm italic mt-1">{project.techStack}</p> */}
+                      <p className="text-xs sm:text-sm italic mt-1">{project.techStack}</p>
                     </div>
                   ))}
               </div>

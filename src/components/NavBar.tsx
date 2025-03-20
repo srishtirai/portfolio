@@ -32,7 +32,6 @@ export default function NavBar() {
     { src: "/images/email.svg", alt: "Email", url: "mailto:srishtiraic@gmail.com" }
   ];
 
-  // Track Active Section
   useEffect(() => {
     const observerOptions = {
       root: null,
@@ -78,7 +77,6 @@ export default function NavBar() {
         scrolled ? "py-2 shadow-md" : "py-4"
       } flex justify-end sm:justify-between items-center px-6 sm:px-12`}
     >
-      {/* Navigation Links */}
       <div className="hidden sm:flex space-x-6">
         {indexes.map((index) => (
           <button
@@ -92,8 +90,6 @@ export default function NavBar() {
           </button>
         ))}
       </div>
-
-      {/* Social Media Icons */}
       <div className="flex items-center space-x-4">
         {links.map((link) => (
           <Link key={link.alt} href={link.url} target="_blank" rel="noopener noreferrer">

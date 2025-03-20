@@ -1,4 +1,4 @@
-import { SkillsListProp } from '@/utils/types';
+import { SkillsListProp } from '@/types/types';
 import Image from 'next/image';
 
 export default function SkillsTab({ category, skills }: SkillsListProp) {

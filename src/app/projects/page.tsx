@@ -23,7 +23,6 @@ export default function Projects() {
 
   return (
     <section id="projects" className="sm:min-h-[80vh] py-10 sm:py-36">
-      {/* Header & Avatar */}
       <div className="flex sm:flex-row flex-col items-center sm:mb-10">
         <h1 className="text-header font-bold sm:mr-4">Projects</h1>
         <Avatar bubbleMessage="Every project starts with a ‘what if…’" sectionName="projects" />
@@ -36,7 +35,6 @@ export default function Projects() {
             key={project.name}
             className="relative bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer h-[300px] transition-all duration-500 hover:scale-105"
           >
-            {/* Front Side */}
             <div className="relative w-full h-full flex flex-col items-center">
               <div className="mb-auto relative w-full h-[220px] overflow-hidden">
                 <Image 
@@ -49,8 +47,6 @@ export default function Projects() {
                 {project.name}
               </h4>
             </div>
-
-            {/* Back Side */}
             <div className="absolute inset-0 bg-primary text-white p-6 
               flex flex-col justify-between items-start transition-opacity duration-500 opacity-0 hover:opacity-100">
               <h2 className="text-subheader text-accent font-bold text-center w-full">{project.name}</h2>
@@ -70,7 +66,6 @@ export default function Projects() {
 
       {/* Horizontal Scroll for Mobile */}
       <div className="md:hidden flex flex-col items-center space-y-4">
-        {/* Scrollable Project List */}
         <div
           ref={scrollRef}
           onScroll={handleScroll}

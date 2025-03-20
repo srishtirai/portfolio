@@ -9,7 +9,6 @@ export default function Skills() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Function to update index when user scrolls
   const handleScroll = () => {
     if (scrollRef.current) {
       const scrollLeft = scrollRef.current.scrollLeft;
@@ -21,7 +20,6 @@ export default function Skills() {
 
   return (
     <section id="skills" className="sm:min-h-[80vh] py-10 sm:py-36">
-      {/* Header Section */}
       <div className="flex sm:flex-row flex-col items-center mb-2">
         <h1 className="text-header font-bold sm:mr-4">Skills</h1>
         <Avatar bubbleMessage="I speak fluent JavaScript… and a few others!" sectionName="skills"/>

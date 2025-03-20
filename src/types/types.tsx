@@ -12,3 +12,16 @@ export type AvatarProps = {
     bubbleMessage: string;
     sectionName: string;
 }
+
+export type QueryRequest = {
+    query: string;
+};
+  
+export type ChunkResult = {
+    content: string;
+    id: string;
+    metadata: {
+      section: string;
+      [key: string]: unknown;
+    };
+  };

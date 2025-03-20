@@ -12,19 +12,16 @@ export default function Chatbot() {
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll to bottom of messages
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
 
-  // Format bot messages (bold styling)
   const formatMessage = (text: string) => {
     return text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
   };
 
-  // Send user message
   const sendMessage = async () => {
     if (!input.trim()) return;
 
@@ -67,7 +64,6 @@ export default function Chatbot() {
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
-      {/* Floating Chat Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="rounded-full p-3 shadow-lg bg-accent transition-transform duration-300 hover:scale-[1.1] hover:shadow-2xl"
@@ -75,14 +71,11 @@ export default function Chatbot() {
       >
         <Image src="/images/chat-icon.svg" alt="Chat" width={55} height={55} className="w-[30px] h-[30px] sm:w-[55px] sm:h-[55px]"/>
       </button>
-
-      {/* Chat Window */}
       <div
         className={`absolute bottom-20 right-0 w-80 sm:w-96 bg-white p-5 shadow-2xl rounded-xl border border-accent transform transition-all duration-500 ${
           isOpen ? "scale-100 opacity-100" : "scale-90 opacity-0 pointer-events-none"
         }`}
       >
-        {/* Header */}
         <div className="flex justify-between items-center mb-3">
           <h3 className="text-lg font-bold text-primary">Ask Srishti&apos;s AI Assistant</h3>
           <button
@@ -92,8 +85,6 @@ export default function Chatbot() {
             <Image src="/images/cancel.svg" alt="Chat" width={15} height={15} className="hover:w-[16px] hover:h-[16px]"/>
           </button>
         </div>
-
-        {/* Messages Area */}
         <div className="h-64 overflow-y-auto space-y-2 pr-2 scrollbar-thin scrollbar-thumb-accent scrollbar-track-secondary">
           {messages.map((msg, index) => (
             <div key={index} className={`flex ${msg.sender === "bot" ? "justify-start" : "justify-end"}`}>
@@ -120,8 +111,6 @@ export default function Chatbot() {
           )}
           <div ref={messagesEndRef}></div>
         </div>
-
-        {/* Input Box */}
         <div className="flex mt-3 space-x-2">
           <input
             type="text"

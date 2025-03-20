@@ -16,18 +16,18 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 async function ingestResume() {
   console.log('Starting resume ingestion...');
   
-  // Step 1: Read the resume JSON
+  // Read the resume JSON
   const resumeData = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'data/resume.json'), 'utf8'));
   
-  // Step 2: Process the resume into chunks
+  // Process the resume into chunks
   const chunks = prepareResumeChunks(resumeData);
   console.log(`Created ${chunks.length} chunks from resume data`);
   
-  // Step 3: Initialize the embedding model
+  // Initialize the embedding model
   const embeddingPipeline = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
   console.log('Embedding model initialized');
   
-  // Step 4: Process each chunk and upload to Supabase
+  // Process each chunk and upload to Supabase
   for (let i = 0; i < chunks.length; i++) {
     const chunk = chunks[i];
     console.log(`Processing chunk ${i+1}/${chunks.length}: ${chunk.metadata.section}`);

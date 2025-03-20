@@ -1,4 +1,4 @@
-import { SkillsListProp } from "@/utils/types";
+import { SkillsListProp } from "@/types/types";
 
 export const skillList: SkillsListProp[] = [
     { 

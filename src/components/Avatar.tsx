@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import "./Avatar.css";
-import { AvatarProps } from "@/utils/types";
+import { AvatarProps } from "@/types/types";
 
 export default function Avatar({ bubbleMessage, sectionName }: AvatarProps) {
   const avatarRef = useRef(null);
