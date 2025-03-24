@@ -16,9 +16,9 @@ function categorizeQuery(query: string): string[] {
   const lowerQuery = query.toLowerCase();
 
   const categoryPatterns = {
-    basic_information: ['name', 'location', 'reside', 'contact', 'email', 'stay'],
-    education: ['study', 'studying', 'degree', 'university', 'college', 'courses', 'gpa', 'major'],
-    experience: ['work', 'job', 'experience', 'company', 'position', 'role', 'career', 'professional', 'tech stack'],
+    basic_information: ['name', 'location', 'reside', 'contact', 'email', 'stay', 'about'],
+    education: ['study', 'studying', 'degree', 'university', 'college', 'courses', 'gpa', 'major', 'education', 'about'],
+    experience: ['work', 'job', 'experience', 'company', 'position', 'role', 'career', 'tech stack', 'years', 'duration', 'since', 'total', 'how long', 'about', 'internship', 'co-op'],
     technical_skills: ['skill', 'technology', 'tech stack', 'programming', 'language', 'framework', 'tool'],
     projects: ['project', 'portfolio', 'built', 'developed', 'created', 'application', 'system'],
     personal_interests: ['hobby', 'hobbies', 'interest', 'personal', 'like', 'enjoy', 'passion', 'outside work', 'leisure', 'fun']
@@ -40,8 +40,15 @@ function categorizeQuery(query: string): string[] {
 export async function POST(request: Request) {
   try {
     const { query }: QueryRequest = await request.json();
+
+    // If query is empty or too short to be meaningful
+    if (query.trim().length < 3) {
+      return NextResponse.json({
+        response: "Sorry, I couldn’t understand that. Could you rephrase?"
+      });
+    }
+
     const queryCategories = categorizeQuery(query);
-    
     if (!contentChunksCache) {
       const { data, error } = await supabase
         .from('resume_chunks')
@@ -79,15 +86,33 @@ export async function POST(request: Request) {
         score: Math.min(relevanceScore, 1.0)
       };
     });
+
+    // console.log("topChunks:", scoredChunks.map(str => JSON.stringify(str)));
     
     const topChunks = scoredChunks
+      .filter(chunk => chunk.score >= 0.3)
       .sort((a, b) => b.score - a.score)
       .slice(0, 5)
       .map(chunk => chunk.content);
+
+      console.log("topChunks:", topChunks.map(str => JSON.stringify(str)));
+
+    if (topChunks.length === 0) {
+      return NextResponse.json({
+        response: "Sorry, I don’t have an answer for this. Please reach out to srishtiraic@gmail.com."
+      });
+    }
       
-    const context = topChunks.join('\n\n');
+    const context = topChunks.length > 0 ? topChunks.join('\n\n') : null;
     const responseStyle = getResponseStyle(query, queryCategories);
 
+    if (!context) {
+      return NextResponse.json({ 
+        response: "Sorry, I don’t have an answer for this. Please reach out to srishtiraic@gmail.com."
+      });
+    }
+    console.log("context:    ", context)
+    
     const response = await fetch("https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2", {
       method: "POST",
       headers: {
@@ -95,7 +120,7 @@ export async function POST(request: Request) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        inputs: `<s>[INST] You are Srishti's Portfolio Chatbot. You're friendly, helpful, and represent Srishti C Rai. Answer questions about Srishti based on this information only:
+        inputs: `<s>[INST] Answer concisely based on the given context:
 
       Context:
       ${context}
@@ -105,16 +130,18 @@ export async function POST(request: Request) {
 
       Instructions:
       - Answer directly as if you are Srishti's personal assistant.
+      - Keep responses brief and relevant (3-4 sentences).
+      - Always refer to Srishti in third person.
+      - If no relevant information is found, return: "Sorry, I don’t have an answer for this. Please reach out to srishtiraic@gmail.com."
       - Never say phrases like "based on the provided context" or "the information shows."
-      - If information isn't available, say "I don't have details about that but you can send an eamil to srishtiraic@gmail.com" or offer what you do know instead.
       - Be conversational and natural - use at most 3-4 sentences.
-      - For missing information, never apologize or mention limitations - just redirect to what you do know about Srishti.
       - Match your tone to the question - professional for work/education, casual for personal topics.
       - Keep responses concise and specific to the question.
-      - Personalize your responses to sound like a chatbot Srishti created for her portfolio.
+      - When asked about experience duration, calculate the number of years and state it directly.
+      - Never suggest looking at LinkedIn if the information is already available.
       [/INST]`,
         parameters: {
-          max_new_tokens: 256,
+          max_new_tokens: 400, // Increased for better response length
           temperature: 0.7,
           top_p: 0.9,
           return_full_text: false
@@ -124,8 +151,13 @@ export async function POST(request: Request) {
     
     const result = await response.json();
     
-    const botResponse = result[0].generated_text.trim();
-    
+    let botResponse = result[0]?.generated_text?.trim() || '';
+
+    // Handle case where no response is returned
+    if (!botResponse) {
+      botResponse = "Sorry, I don’t have an answer for this. Please reach out to srishtiraic@gmail.com.";
+    }
+
     return NextResponse.json({ 
       response: botResponse,
       style: responseStyle,
