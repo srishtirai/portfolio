@@ -1,7 +1,6 @@
 import { ChunkResult, QueryRequest } from '@/types/types';
 import { createClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
-import stringSimilarity from 'string-similarity';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL as string;
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY as string;
@@ -12,37 +11,88 @@ type ResponseStyle = 'professional' | 'casual' | 'balanced';
 let contentChunksCache: ChunkResult[] | null = null;
 
 function categorizeQuery(query: string): string[] {
-  const queryCategories = [];
+  const queryCategories: string[] = [];
   const lowerQuery = query.toLowerCase();
 
   const categoryPatterns = {
-    basic_information: ['name', 'location', 'reside', 'contact', 'email', 'stay', 'about'],
-    education: ['study', 'studying', 'degree', 'university', 'college', 'courses', 'gpa', 'major', 'education', 'about'],
-    experience: ['work', 'job', 'experience', 'company', 'position', 'role', 'career', 'tech stack', 'years', 'duration', 'since', 'total', 'how long', 'about', 'internship', 'co-op'],
-    technical_skills: ['skill', 'technology', 'tech stack', 'programming', 'language', 'framework', 'tool'],
-    projects: ['project', 'portfolio', 'built', 'developed', 'created', 'application', 'system'],
-    personal_interests: ['hobby', 'hobbies', 'interest', 'personal', 'like', 'enjoy', 'passion', 'outside work', 'leisure', 'fun']
+    basic_information: [
+      'name', 'names', 'profile', 'overview', 'about', 'who', 'describe', 
+      'location', 'reside', 'residing', 'resided', 'contact', 'email', 
+      'emails', 'address', 'summary', 'background'
+    ],
+    education: [
+      'educat', 'study', 'studi', 'student', 'students', 'degree', 'degrees', 
+      'university', 'universities', 'college', 'colleges', 'course', 'courses', 
+      'coursework', 'academic', 'gpa', 'major', 'school', 'schools', 
+      'qualification', 'qualifications', 'learning', 'learned', 'diploma'
+    ],
+    experience: [
+      'work', 'works', 'worked', 'working', 'job', 'jobs', 'employ', 
+      'experience', 'experiences', 'company', 'companies', 'position', 
+      'positions', 'role', 'roles', 'career', 'careers', 'workplace', 
+      'workplaces', 'profession', 'professional', 'internship', 'internships', 
+      'co-op', 'co-ops', 'duration', 'since', 'workplace', 'workplaces'
+    ],
+    technical_skills: [
+      'skill', 'skills', 'technology', 'technologies', 'tech', 'programming', 
+      'program', 'language', 'languages', 'framework', 'frameworks', 'tool', 
+      'tools', 'expert', 'expertise', 'coding', 'develop', 'development', 
+      'speciali', 'proficien', 'familiar', 'capabilit', 'competenc', 'ability'
+    ],
+    projects: [
+      'project', 'projects', 'portfolio', 'portfolios', 'built', 'build', 
+      'develop', 'developed', 'develops', 'creating', 'created', 'create', 
+      'application', 'applications', 'system', 'systems', 'software', 
+      'initiative', 'initiatives', 'contribute', 'contributes', 'contributed'
+    ],
+    personal_interests: [
+      'hobby', 'hobbies', 'interest', 'interests', 'personal', 'like', 
+      'likes', 'enjoy', 'enjoys', 'enjoyed', 'passion', 'passions', 
+      'leisure', 'fun', 'activity', 'activities', 'creative', 'art', 
+      'arts', 'music', 'reading', 'travel', 'traveling', 'traveled', 
+      'painting', 'paint', 'poetry', 'poet'
+    ]
   };
   
+  const matchKeyword = (keyword: string, query: string): boolean => {
+    const regex = new RegExp(`\\b${keyword}\\w*\\b`, 'i');
+    return regex.test(query);
+  };
+
   Object.entries(categoryPatterns).forEach(([category, keywords]) => {
-    if (keywords.some(keyword => lowerQuery.includes(keyword))) {
+    if (keywords.some(keyword => matchKeyword(keyword, lowerQuery))) {
       queryCategories.push(category);
     }
   });
   
-  if (queryCategories.length === 0) {
-    queryCategories.push('general');
-  }
+  const specialCases = [
+    { 
+      terms: ['top', 'best', 'primary', 'main', 'good', 'skilled'], 
+      categories: ['technical_skills', 'experience', 'projects']
+    },
+    { 
+      terms: ['recent', 'latest', 'current'], 
+      categories: ['experience', 'projects', 'education']
+    }
+  ];
+
+  specialCases.forEach(specialCase => {
+    if (specialCase.terms.some(term => lowerQuery.includes(term))) {
+      queryCategories.push(...specialCase.categories);
+    }
+  });
   
-  return queryCategories;
+  const uniqueCategories = [...new Set(queryCategories)];
+  
+  return uniqueCategories.length > 0 ? uniqueCategories : ['general'];
 }
 
 export async function POST(request: Request) {
   try {
     const { query }: QueryRequest = await request.json();
 
-    // If query is empty or too short to be meaningful
     if (query.trim().length < 3) {
+      console.error("Query is too short to be meaningful");
       return NextResponse.json({
         response: "Sorry, I couldn’t understand that. Could you rephrase?"
       });
@@ -64,7 +114,13 @@ export async function POST(request: Request) {
     }
     
     const scoredChunks = contentChunksCache.map((chunk) => {
-      let relevanceScore = stringSimilarity.compareTwoStrings(query, chunk.content);
+      let relevanceScore = query.toLowerCase()
+        .replace(/[^\w\s]/g, '')
+        .split(/\s+/)
+        .filter(word => word.length > 2)
+        .some(word => chunk.content.toLowerCase().includes(word)) 
+        ? 0.3
+        : 0;
 
       if (chunk.metadata?.section && queryCategories.includes(chunk.metadata.section)) {
         relevanceScore += 0.3;
@@ -86,18 +142,15 @@ export async function POST(request: Request) {
         score: Math.min(relevanceScore, 1.0)
       };
     });
-
-    // console.log("topChunks:", scoredChunks.map(str => JSON.stringify(str)));
     
     const topChunks = scoredChunks
-      .filter(chunk => chunk.score >= 0.3)
+      .filter(chunk => chunk.score >= 0.5)
       .sort((a, b) => b.score - a.score)
       .slice(0, 5)
       .map(chunk => chunk.content);
 
-      console.log("topChunks:", topChunks.map(str => JSON.stringify(str)));
-
     if (topChunks.length === 0) {
+      console.error("Context not found");
       return NextResponse.json({
         response: "Sorry, I don’t have an answer for this. Please reach out to srishtiraic@gmail.com."
       });
@@ -105,13 +158,6 @@ export async function POST(request: Request) {
       
     const context = topChunks.length > 0 ? topChunks.join('\n\n') : null;
     const responseStyle = getResponseStyle(query, queryCategories);
-
-    if (!context) {
-      return NextResponse.json({ 
-        response: "Sorry, I don’t have an answer for this. Please reach out to srishtiraic@gmail.com."
-      });
-    }
-    console.log("context:    ", context)
     
     const response = await fetch("https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2", {
       method: "POST",
@@ -139,6 +185,7 @@ export async function POST(request: Request) {
       - Keep responses concise and specific to the question.
       - When asked about experience duration, calculate the number of years and state it directly.
       - Never suggest looking at LinkedIn if the information is already available.
+      - Never say phrases like "based on the provided context" or "the information shows".
       [/INST]`,
         parameters: {
           max_new_tokens: 400, // Increased for better response length
@@ -150,13 +197,13 @@ export async function POST(request: Request) {
     });
     
     const result = await response.json();
-    
-    let botResponse = result[0]?.generated_text?.trim() || '';
 
-    // Handle case where no response is returned
-    if (!botResponse) {
-      botResponse = "Sorry, I don’t have an answer for this. Please reach out to srishtiraic@gmail.com.";
+    if (!result || !result[0] || !result[0].generated_text) {
+      console.error("API returned unexpected response:", result);
+      return NextResponse.json({ response: "Sorry, I don’t have an answer for this. Please reach out to srishtiraic@gmail.com." });
     }
+    
+    const botResponse = result[0]?.generated_text?.trim() || '';
 
     return NextResponse.json({ 
       response: botResponse,
