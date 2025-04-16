@@ -159,7 +159,7 @@ export async function POST(request: Request) {
     const context = topChunks.length > 0 ? topChunks.join('\n\n') : null;
     const responseStyle = getResponseStyle(query, queryCategories);
     
-    const response = await fetch("https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2", {
+    const response = await fetch("https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-beta", {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${process.env.HUGGINGFACE_API_KEY}`,

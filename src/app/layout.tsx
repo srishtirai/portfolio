@@ -23,7 +23,7 @@ export default function RootLayout({
         <SpeedInsights/>
         <NavBar />
         <main className="mx-[10px] mt-[20px] sm:mx-[60px] sm:mt-[100px] md:mx-[80px] md:mt-[120px]">{children}</main>
-        <Chatbot />
+        {/* <Chatbot /> */}
         <Footer />
       </body>
     </html>
