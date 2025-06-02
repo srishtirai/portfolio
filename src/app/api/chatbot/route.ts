@@ -166,27 +166,22 @@ export async function POST(request: Request) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        inputs: `<s>[INST] Answer concisely based on the given context:
+        inputs: `<s>[INST] 
+          Answer the user's question strictly based on the context below. Do **not** repeat or include the question or style in your response.
 
-      Context:
-      ${context}
+          Context:
+          ${context}
 
-      Question: ${query}
-      Style: ${responseStyle}
+          Instructions:
+          - Respond directly and concisely as if you are Srishti's assistant.
+          - Use a tone based on style: ${responseStyle}.
+          - Avoid mentioning the context, question, or style in your output.
+          - Refer to Srishti in third person.
+          - Keep answers to 3–4 sentences max.
+          - Do not echo or include the question in your answer.
 
-      Instructions:
-      - Answer directly as if you are Srishti's personal assistant.
-      - Keep responses brief and relevant (3-4 sentences).
-      - Always refer to Srishti in third person.
-      - If no relevant information is found, return: "Sorry, I don’t have an answer for this. Please reach out to srishtiraic@gmail.com."
-      - Never say phrases like "based on the provided context" or "the information shows."
-      - Be conversational and natural - use at most 3-4 sentences.
-      - Match your tone to the question - professional for work/education, casual for personal topics.
-      - Keep responses concise and specific to the question.
-      - When asked about experience duration, calculate the number of years and state it directly.
-      - Never suggest looking at LinkedIn if the information is already available.
-      - Never say phrases like "based on the provided context" or "the information shows".
-      [/INST]`,
+          Now answer: ${query}
+          [/INST]`,
         parameters: {
           max_new_tokens: 400, // Increased for better response length
           temperature: 0.7,
@@ -203,7 +198,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ response: "Sorry, I don’t have an answer for this. Please reach out to srishtiraic@gmail.com." });
     }
     
-    const botResponse = result[0]?.generated_text?.trim() || '';
+    const botResponse = result[0]?.generated_text?.replace(/\[\/?ASST\]/gi, '').trim() || '';
 
     return NextResponse.json({ 
       response: botResponse,
