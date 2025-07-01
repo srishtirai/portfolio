@@ -6,7 +6,7 @@ export const education = [
       imgSrc: "/images/neu.svg",
       degree: "Master of Science, Software Engineering",
       location: "Boston, MA",
-      duration: "Sep 2023 - Expected Jun 2025",
+      duration: "Sep 2023 - Jun 2025",
       additionalDetails: [
         {
           title: "Teaching Assistant",
