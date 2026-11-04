@@ -14,13 +14,13 @@ export default function Footer() {
         Built with <span className="text-primary">❤️</span> and lots of <strong>TypeScript</strong>.
       </p>
       <p>
-        Copyright © 2025 <strong>Srishti Rai</strong>
+        Copyright © {new Date().getFullYear()} <strong>Srishti Rai</strong>
       </p>
 
       {/* Contact Info */}
-      <div className="flex justify-center gap-6 mt-2">
+      <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 mt-4 px-5">
         {links.map(({ src, alt, text, url }) => (
-          <a key={alt} href={url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-secondary">
+          <a key={alt} href={url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:underline">
             <Image src={src} alt={alt} width={20} height={20} />
             <span>{text}</span>
           </a>

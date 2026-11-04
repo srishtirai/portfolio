@@ -1,56 +1,19 @@
-"use client";
-
 import Image from "next/image";
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import ScrollTrigger from 'gsap/ScrollTrigger';
 import "./Avatar.css";
 import { AvatarProps } from "@/types/types";
 
-export default function Avatar({ bubbleMessage, sectionName }: AvatarProps) {
-  const avatarRef = useRef(null);
-
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    const sectionElement = document.querySelector(`#${sectionName}`) as HTMLElement;
-    const avatarElement = avatarRef.current;
-
-    if (sectionElement && avatarElement) {
-      gsap.fromTo(avatarElement,
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.5,
-          scrollTrigger: {
-            trigger: sectionElement,
-            start: "top 50%",
-            end: "top 10%",
-            scrub: true,
-            toggleActions: "play none none reverse"
-          }
-        }
-      );
-    }
-  }, [sectionName]);
-
+export default function Avatar({ bubbleMessage }: AvatarProps) {
   return (
-    <div ref={avatarRef} className="avatar-wrapper mt-10 sm:mt-0 w-full">
-      <div className="avatar-image">
-        <Image 
-          src="/images/head.svg" 
-          width={70} 
-          height={70} 
-          unoptimized
-          alt="headshot"
-          className="sm:w-[70px] sm:h-[70px] w-[50px] h-[50px]" 
-        />
-      </div>
+    <div className="avatar-wrapper">
+      <Image src="/images/head.svg" width={70} height={88} unoptimized alt="Srishti’s hand-drawn avatar" className="avatar-image" />
       <div className="thought-bubble">
+        <svg className="cloud-shape" viewBox="0 0 400 160" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M55 133 C12 136 4 101 28 82 C6 51 40 23 76 34 C89 3 135 2 159 23 C184 0 232 2 249 25 C281 7 323 18 328 42 C370 31 403 61 382 89 C411 118 375 148 340 134 C317 157 275 154 252 139 C221 160 179 159 155 140 C124 158 79 155 55 133 Z" />
+        </svg>
         <span>{bubbleMessage}</span>
+        <i className="thought-dot thought-dot-large" aria-hidden="true" />
+        <i className="thought-dot thought-dot-small" aria-hidden="true" />
       </div>
     </div>
   );
 }
-

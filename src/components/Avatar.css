@@ -1,71 +1,9 @@
-.avatar-wrapper {
-  position: relative;
-}
-
-.avatar-image {
-    display: inline-block;
-}
-
-.thought-bubble {
-    position: absolute;
-    top: -70px;
-    left: 60px;
-    width: fit-content;
-    min-width: 250px;
-    height: 70px;
-    padding: 20px 20px;
-    font-size: 15px;
-    text-align: center;
-    border-radius: 50%;
-    border: 0.5px solid var(--accent);
-    font-family: 'Comic Sans MS', 'Arial', sans-serif;
-    box-shadow: 2px 2px 6px var(--accent); 
-  }
-  
-  .thought-bubble::before,
-  .thought-bubble::after {
-    content: '';
-    position: absolute;
-    border: 0.5px solid var(--accent);
-    box-shadow: 2px 2px 6px var(--accent); 
-    border-radius: 50%;
-  }
-  
-  .thought-bubble::before {
-    width: 22px;
-    height: 22px;
-    bottom: -13px;
-    right: calc(100% - 30px);
-  }
-  
-  .thought-bubble::after {
-    width: 13px;
-    height: 13px;
-    bottom: -25px;
-    right: calc(100% - 10px);
-  }
-  
-  @media (max-width: 640px) {
-    .thought-bubble {
-      top: -35px;
-      left: 50px;
-      min-width: 180px;
-      height: 50px;
-      padding: 15px 10px;
-      font-size: 12px;
-    }
-  
-    .thought-bubble::before {
-      width: 12px; 
-      height: 12px;
-      bottom: -2px;
-      right: calc(100% - 10px);
-    }
-  
-    .thought-bubble::after {
-      width: 5px;
-      height: 5px;
-      bottom: -10px;
-      right: calc(100% - 0px);
-    }
-  }
+.avatar-wrapper { display: flex; align-items: flex-end; gap: 1rem; width: min(100%, 30rem); min-width: 0; padding: 1rem 0 1.5rem; }
+.avatar-image { flex: 0 0 auto; width: 58px; height: 76px; object-fit: contain; }
+.thought-bubble { position: relative; isolation: isolate; flex: 1; min-width: 0; max-width: 360px; min-height: 126px; display: grid; place-items: center; padding: 30px 32px; margin-bottom: 62px; color: #754592; font-family: 'Comic Sans MS', cursive; font-size: .9rem; text-align: center; line-height: 1.5; }
+.cloud-shape { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 5px 5px #75459218); }
+.cloud-shape path { fill: #fcf8ff; stroke: #c0a3cf; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.thought-dot { position: absolute; display: block; border: 1px solid #c0a3cf; border-radius: 50%; background: #fcf8ff; box-shadow: 0 3px 5px #75459218; }
+.thought-dot-large { width: 19px; height: 19px; left: -3px; bottom: -7px; }
+.thought-dot-small { width: 10px; height: 10px; left: -23px; bottom: -17px; }
+@media (max-width: 420px) { .avatar-wrapper { gap: .5rem; } .avatar-image { width: 46px; height: 65px; } .thought-bubble { font-size: .8rem; padding: 28px 22px; } }
