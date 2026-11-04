@@ -3,8 +3,8 @@ import type { Metadata } from 'next'
 
 export const siteConfig = {
   name: "Srishti Rai",
-  title: "Srishti Rai - Full Stack Developer | React, Next.js, Spring Boot",
-  description: "Full-stack developer specializing in React, Next.js, TypeScript, Spring Boot, and AI. Experienced in automation, UI/UX design, and scalable web applications.",
+  title: "Srishti Rai | Software Engineer II",
+  description: "Software Engineer II specializing in React, Next.js, TypeScript, Spring Boot, and AI. Experienced in automation, UI/UX design, and scalable web applications.",
   url: "https://srishtirai-portfolio.vercel.app",
   image: "/images/about_me.jpeg",
   keywords: [
@@ -25,6 +25,7 @@ export const siteConfig = {
 }
 
 export const defaultMetadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: siteConfig.title,
   description: siteConfig.description,
   keywords: siteConfig.keywords.join(", "),
