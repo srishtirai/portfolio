@@ -5,8 +5,8 @@ import { education } from "@/data/education";
 export default function Education() {
 
   return (
-    <section id="education" className="sm:min-h-[80vh] py-10 sm:py-36">
-      <div className="flex sm:flex-row flex-col items-center sm:mb-10">
+    <section id="education" className="portfolio-section">
+      <div className="section-heading">
         <h1 className="text-header font-bold sm:mr-4">Education</h1>
         <Avatar bubbleMessage="Degrees and debugging — both require patience!" sectionName="education" />
       </div>
